@@ -13,7 +13,7 @@ spl_autoload_register(function ($class) {
 });
 
 use MyProject\Classes\User;
-use MyProject\Classes\SuperUser;
+use MyProject\Classes\superUser;
 
 // создание объектов класса
 $user1 = new User("Иван", "Ivan", "1234");
