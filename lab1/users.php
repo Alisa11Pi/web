@@ -1,7 +1,7 @@
 <?php
 
 // подключение файла к классу User
-require 'User.php';
+require 'MyProject\Classes\User.php';
 
 // создание объектов класса
 $user1 = new User("Иван", "Ivan", "1234");
