@@ -1,0 +1,29 @@
+@startuml lab1
+
+    class User {
+        +name: string
+        +login: string
+        -password: string     
+        +showInfo(): void
+        +__destruct(): void
+    }
+
+    class SuperUser {
+        +role: string
+        +showInfo(): void
+        +getInfo(): array
+    }
+
+    interface SuperUserInterface {
+        +{abstract} getInfo()
+    }
+
+    abstract class AbstractUser {
+        +{abstract} showInfo()
+    }
+
+    AbstractUser --|> User
+    User --|> SuperUser
+    SuperUser ..|> SuperUserInterface
+
+@enduml
