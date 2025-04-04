@@ -3,13 +3,15 @@
     class User {
         +name: string
         +login: string
-        -password: string     
+        -password: string  
+        +{static} count: int = 0   
         +showInfo(): void
         +__destruct(): void
     }
 
     class SuperUser {
         +role: string
+        +{static} count: int = 0
         +showInfo(): void
         +getInfo(): array
     }
