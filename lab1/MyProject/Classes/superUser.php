@@ -35,4 +35,3 @@ class SuperUser extends User implements SuperUserInterface {
         ];
     }
 }
-?>

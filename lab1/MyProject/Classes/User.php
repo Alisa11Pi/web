@@ -30,4 +30,3 @@ class User extends AbstractUser {
         echo "<pre> Пользователь [" . $this->login . "] удален";
     }
 }
-?>
