@@ -55,17 +55,17 @@ abstract class AbstractClass
      */
     protected function baseOperation1(): void
     {
-        echo "AbstractClass says: I am doing the bulk of the work\n";
+        echo "AbstractClass говорит: я делаю большую часть работы<br>";
     }
 
     protected function baseOperation2(): void
     {
-        echo "AbstractClass says: But I let subclasses override some operations\n";
+        echo "AbstractClass говорит: но я позволил подклассам переопределить некоторые операции<br>";
     }
 
     protected function baseOperation3(): void
     {
-        echo "AbstractClass says: But I am doing the bulk of the work anyway\n";
+        echo "AbstractClass говорит: но я все равно делаю большую часть работы<br>";
     }
 
     /**
@@ -105,12 +105,12 @@ class ConcreteClass1 extends AbstractClass
 {
     protected function requiredOperations1(): void
     {
-        echo "ConcreteClass1 says: Implemented Operation1\n";
+        echo "ConcreteClass1 говорит: реализованна Operation1<br>";
     }
 
     protected function requiredOperation2(): void
     {
-        echo "ConcreteClass1 says: Implemented Operation2\n";
+        echo "ConcreteClass1 говорит: реализованна Operation2<br>";
     }
 }
 
@@ -125,17 +125,17 @@ class ConcreteClass2 extends AbstractClass
 {
     protected function requiredOperations1(): void
     {
-        echo "ConcreteClass2 says: Implemented Operation1\n";
+        echo "ConcreteClass2 говорит: реализованна Operation1<br>";
     }
 
     protected function requiredOperation2(): void
     {
-        echo "ConcreteClass2 says: Implemented Operation2\n";
+        echo "ConcreteClass2 говорит: реализованна Operation2<br>";
     }
 
     protected function hook1(): void
     {
-        echo "ConcreteClass2 says: Overridden Hook1\n";
+        echo "ConcreteClass2 говорит: переопределенный Hook1<br>";
     }
 }
 
@@ -156,9 +156,9 @@ function clientCode(AbstractClass $class)
     // ...
 }
 
-echo "Same client code can work with different subclasses:\n";
+echo "Тот же клиент -код может работать с разными подклассами:<br>";
 clientCode(new ConcreteClass1());
-echo "\n";
+echo "<br>";
 
-echo "Same client code can work with different subclasses:\n";
+echo "Тот же клиент -код может работать с разными подклассами:<br>";
 clientCode(new ConcreteClass2());

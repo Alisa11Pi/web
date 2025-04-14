@@ -38,7 +38,7 @@ class Originator
     public function __construct(string $state)
     {
         $this->state = $state;
-        echo "Originator: My initial state is: {$this->state}\n";
+        echo "Оригинал: мое первоначальное состояние: {$this->state}<br>";
     }
 
     /**
@@ -52,9 +52,9 @@ class Originator
      */
     public function doSomething(): void
     {
-        echo "Originator: I'm doing something important.\n";
+        echo "Ориентатор: я делаю что -то важное.<br>";
         $this->state = $this->generateRandomString(30);
-        echo "Originator: and my state has changed to: {$this->state}\n";
+        echo "Ориентатор: и мое состояние изменилось на: {$this->state}<br>";
     }
 
     private function generateRandomString(int $length = 10): string
@@ -89,7 +89,7 @@ class Originator
     public function restore(Memento $memento): void
     {
         $this->state = $memento->getState();
-        echo "Originator: My state has changed to: {$this->state}\n";
+        echo "Ориентатор: мое состояние изменилось на: {$this->state}<br>";
     }
 }
 
@@ -183,7 +183,7 @@ class Caretaker
 
     public function backup(): void
     {
-        echo "\nCaretaker: Saving Originator's state...\n";
+        echo "\nСмотритель: сохранение состояния оригинала...<br>";
         $this->mementos[] = $this->originator->save();
     }
 
@@ -194,7 +194,7 @@ class Caretaker
         }
         $memento = array_pop($this->mementos);
 
-        echo "Caretaker: Restoring state to: " . $memento->getName() . "\n";
+        echo "Смотритель: восстановление штата в: " . $memento->getName() . "<br>";
         try {
             $this->originator->restore($memento);
         } catch (\Exception $e) {
@@ -204,9 +204,9 @@ class Caretaker
 
     public function showHistory(): void
     {
-        echo "Caretaker: Here's the list of mementos:\n";
+        echo "Смотритель: вот список сувениров:<br>";
         foreach ($this->mementos as $memento) {
-            echo $memento->getName() . "\n";
+            echo $memento->getName() . "<br>";
         }
     }
 }
@@ -216,7 +216,7 @@ class Caretaker
  *
  * RU: Клиентский код.
  */
-$originator = new Originator("Super-duper-super-puper-super.");
+$originator = new Originator("Супер-дупер-супер-пупер-супер.");
 $caretaker = new Caretaker($originator);
 
 $caretaker->backup();
@@ -228,11 +228,11 @@ $originator->doSomething();
 $caretaker->backup();
 $originator->doSomething();
 
-echo "\n";
+echo "<br>";
 $caretaker->showHistory();
 
-echo "\nClient: Now, let's rollback!\n\n";
+echo "\nКлиент: Теперь давайте откачаемся!<br>";
 $caretaker->undo();
 
-echo "\nClient: Once more!\n\n";
+echo "\nКлиент: еще раз!<br>";
 $caretaker->undo();

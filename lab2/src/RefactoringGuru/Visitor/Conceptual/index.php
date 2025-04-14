@@ -119,12 +119,12 @@ class ConcreteVisitor1 implements Visitor
 {
     public function visitConcreteComponentA(ConcreteComponentA $element): void
     {
-        echo $element->exclusiveMethodOfConcreteComponentA() . " + ConcreteVisitor1\n";
+        echo $element->exclusiveMethodOfConcreteComponentA() . " + ConcreteVisitor1<br>";
     }
 
     public function visitConcreteComponentB(ConcreteComponentB $element): void
     {
-        echo $element->specialMethodOfConcreteComponentB() . " + ConcreteVisitor1\n";
+        echo $element->specialMethodOfConcreteComponentB() . " + ConcreteVisitor1<br>";
     }
 }
 
@@ -132,12 +132,12 @@ class ConcreteVisitor2 implements Visitor
 {
     public function visitConcreteComponentA(ConcreteComponentA $element): void
     {
-        echo $element->exclusiveMethodOfConcreteComponentA() . " + ConcreteVisitor2\n";
+        echo $element->exclusiveMethodOfConcreteComponentA() . " + ConcreteVisitor2<br>";
     }
 
     public function visitConcreteComponentB(ConcreteComponentB $element): void
     {
-        echo $element->specialMethodOfConcreteComponentB() . " + ConcreteVisitor2\n";
+        echo $element->specialMethodOfConcreteComponentB() . " + ConcreteVisitor2<br>";
     }
 }
 
@@ -164,11 +164,11 @@ $components = [
     new ConcreteComponentB(),
 ];
 
-echo "The client code works with all visitors via the base Visitor interface:\n";
+echo "Клиентский код работает со всеми посетителями через интерфейс базового посетителя:<br>";
 $visitor1 = new ConcreteVisitor1();
 clientCode($components, $visitor1);
-echo "\n";
+echo "<br>";
 
-echo "It allows the same client code to work with different types of visitors:\n";
+echo "Это позволяет одному и тому же клиентскому коду работать с разными типами посетителей:<br>";
 $visitor2 = new ConcreteVisitor2();
 clientCode($components, $visitor2);

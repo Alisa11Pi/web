@@ -78,8 +78,8 @@ class MonkeyHandler extends AbstractHandler
 {
     public function handle(string $request): ?string
     {
-        if ($request === "Banana") {
-            return "Monkey: I'll eat the " . $request . ".\n";
+        if ($request === "Банан") {
+            return "Обезьяна: я съем " . $request . ".<br>";
         } else {
             return parent::handle($request);
         }
@@ -90,8 +90,8 @@ class SquirrelHandler extends AbstractHandler
 {
     public function handle(string $request): ?string
     {
-        if ($request === "Nut") {
-            return "Squirrel: I'll eat the " . $request . ".\n";
+        if ($request === "Орех") {
+            return "Белка: я съем " . $request . ".<br>";
         } else {
             return parent::handle($request);
         }
@@ -102,8 +102,8 @@ class DogHandler extends AbstractHandler
 {
     public function handle(string $request): ?string
     {
-        if ($request === "MeatBall") {
-            return "Dog: I'll eat the " . $request . ".\n";
+        if ($request === "Мясо") {
+            return "Собака: я съем " . $request . ".<br>";
         } else {
             return parent::handle($request);
         }
@@ -120,13 +120,13 @@ class DogHandler extends AbstractHandler
  */
 function clientCode(Handler $handler)
 {
-    foreach (["Nut", "Banana", "Cup of coffee"] as $food) {
-        echo "Client: Who wants a " . $food . "?\n";
+    foreach (["Орех", "Банан", "Кофе"] as $food) {
+        echo "Клиент: кто хочет " . $food . "?<br>";
         $result = $handler->handle($food);
         if ($result) {
             echo "  " . $result;
         } else {
-            echo "  " . $food . " was left untouched.\n";
+            echo "  " . $food . " остался нетронутым.<br>";
         }
     }
 }
@@ -149,9 +149,9 @@ $monkey->setNext($squirrel)->setNext($dog);
  * RU: Клиент должен иметь возможность отправлять запрос любому обработчику, а
  * не только первому в цепочке.
  */
-echo "Chain: Monkey > Squirrel > Dog\n\n";
+echo "Цепочка: обезьяна> белка> собака<br>";
 clientCode($monkey);
-echo "\n";
+echo "<br>";
 
-echo "Subchain: Squirrel > Dog\n\n";
+echo "Подцепочка: белка > собака<br>";
 clientCode($squirrel);

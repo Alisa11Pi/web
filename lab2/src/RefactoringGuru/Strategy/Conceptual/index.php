@@ -67,9 +67,9 @@ class Context
     {
         // ...
 
-        echo "Context: Sorting data using the strategy (not sure how it'll do it)\n";
+        echo "Контекст: сортировка данных, используя стратегию (не уверен, как она это сделает)<br>";
         $result = $this->strategy->doAlgorithm(["a", "b", "c", "d", "e"]);
-        echo implode(",", $result) . "\n";
+        echo implode(",", $result) . "<br>";
 
         // ...
     }
@@ -130,11 +130,11 @@ class ConcreteStrategyB implements Strategy
  * выбор.
  */
 $context = new Context(new ConcreteStrategyA());
-echo "Client: Strategy is set to normal sorting.\n";
+echo "Клиент: стратегия установлена ​​на нормальную сортировку.<br>";
 $context->doSomeBusinessLogic();
 
-echo "\n";
+echo "<br>";
 
-echo "Client: Strategy is set to reverse sorting.\n";
+echo "Клиент: стратегия настроена на обратную сортировку.<br>";
 $context->setStrategy(new ConcreteStrategyB());
 $context->doSomeBusinessLogic();

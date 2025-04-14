@@ -3,29 +3,10 @@
 namespace RefactoringGuru\Flyweight\Conceptual;
 
 /**
- * EN: Flyweight Design Pattern
+ * Паттерн Легковес
  *
- * Intent: Lets you fit more objects into the available amount of RAM by sharing
- * common parts of state between multiple objects, instead of keeping all of the
- * data in each object.
- *
- * RU: Паттерн Легковес
- *
- * Назначение: Позволяет вместить бóльшее количество объектов в отведённую
- * оперативную память. Легковес экономит память, разделяя общее состояние
- * объектов между собой, вместо хранения одинаковых данных в каждом объекте.
- */
-
-/**
- * EN: The Flyweight stores a common portion of the state (also called intrinsic
- * state) that belongs to multiple real business entities. The Flyweight accepts
- * the rest of the state (extrinsic state, unique for each entity) via its
- * method parameters.
- *
- * RU: Легковес хранит общую часть состояния (также называемую внутренним
- * состоянием), которая принадлежит нескольким реальным бизнес-объектам.
- * Легковес принимает оставшуюся часть состояния (внешнее состояние, уникальное
- * для каждого объекта)  через его параметры метода.
+ * Назначение: Позволяет вместить больше объектов в отведённую оперативную память,
+ * разделяя общее состояние объектов между собой.
  */
 class Flyweight
 {
@@ -40,26 +21,15 @@ class Flyweight
     {
         $s = json_encode($this->sharedState);
         $u = json_encode($uniqueState);
-        echo "Flyweight: Displaying shared ($s) and unique ($u) state.\n";
+        echo "Легковес: Отображаем общее состояние ($s) и уникальное состояние ($u).<br>";
     }
 }
 
 /**
- * EN: The Flyweight Factory creates and manages the Flyweight objects. It
- * ensures that flyweights are shared correctly. When the client requests a
- * flyweight, the factory either returns an existing instance or creates a new
- * one, if it doesn't exist yet.
- *
- * RU: Фабрика Легковесов создает объекты-Легковесы и управляет ими. Она
- * обеспечивает правильное разделение легковесов. Когда клиент запрашивает
- * легковес, фабрика либо возвращает существующий экземпляр, либо создает новый,
- * если он ещё не существует.
+ * Фабрика Легковесов создает и управляет объектами-Легковесами.
  */
 class FlyweightFactory
 {
-    /**
-     * @var Flyweight[]
-     */
     private $flyweights = [];
 
     public function __construct(array $initialFlyweights)
@@ -69,34 +39,21 @@ class FlyweightFactory
         }
     }
 
-    /**
-     * EN: Returns a Flyweight's string hash for a given state.
-     *
-     * RU: Возвращает хеш строки Легковеса для данного состояния.
-     */
     private function getKey(array $state): string
     {
         ksort($state);
-
         return implode("_", $state);
     }
 
-    /**
-     * EN: Returns an existing Flyweight with a given state or creates a new
-     * one.
-     *
-     * RU: Возвращает существующий Легковес с заданным состоянием или создает
-     * новый.
-     */
     public function getFlyweight(array $sharedState): Flyweight
     {
         $key = $this->getKey($sharedState);
 
         if (!isset($this->flyweights[$key])) {
-            echo "FlyweightFactory: Can't find a flyweight, creating new one.\n";
+            echo "Фабрика Легковесов: Не найден существующий легковес, создаю новый.<br>";
             $this->flyweights[$key] = new Flyweight($sharedState);
         } else {
-            echo "FlyweightFactory: Reusing existing flyweight.\n";
+            echo "Фабрика Легковесов: Использую существующий легковес.<br>";
         }
 
         return $this->flyweights[$key];
@@ -105,61 +62,51 @@ class FlyweightFactory
     public function listFlyweights(): void
     {
         $count = count($this->flyweights);
-        echo "\nFlyweightFactory: I have $count flyweights:\n";
+        echo "<br>Фабрика Легковесов: Всего $count легковесов:<br>";
         foreach ($this->flyweights as $key => $flyweight) {
-            echo $key . "\n";
+            echo $key . "<br>";
         }
     }
 }
 
-/**
- * EN: The client code usually creates a bunch of pre-populated flyweights in
- * the initialization stage of the application.
- *
- * RU: Клиентский код обычно создает кучу предварительно заполненных легковесов
- * на этапе инициализации приложения.
- */
+// Инициализация фабрики с начальным набором легковесов
 $factory = new FlyweightFactory([
-    ["Chevrolet", "Camaro2018", "pink"],
-    ["Mercedes Benz", "C300", "black"],
-    ["Mercedes Benz", "C500", "red"],
-    ["BMW", "M5", "red"],
-    ["BMW", "X6", "white"],
-    // ...
+    ["Chevrolet", "Camaro2018", "розовый"],
+    ["Mercedes Benz", "C300", "черный"],
+    ["Mercedes Benz", "C500", "красный"],
+    ["BMW", "M5", "красный"],
+    ["BMW", "X6", "белый"],
 ]);
 $factory->listFlyweights();
 
-// ...
-
+/**
+ * Добавляет автомобиль в полицейскую базу данных
+ */
 function addCarToPoliceDatabase(
     FlyweightFactory $ff, $plates, $owner,
     $brand, $model, $color
 ) {
-    echo "\nClient: Adding a car to database.\n";
+    echo "\nКлиент: Добавляю автомобиль в базу данных.<br>";
     $flyweight = $ff->getFlyweight([$brand, $model, $color]);
-
-    // EN: The client code either stores or calculates extrinsic state and
-    // passes it to the flyweight's methods.
-    //
-    // RU: Клиентский код либо сохраняет, либо вычисляет внешнее состояние и
-    // передает его методам легковеса.
     $flyweight->operation([$plates, $owner]);
 }
 
+// Добавление автомобилей в базу данных
 addCarToPoliceDatabase($factory,
     "CL234IR",
-    "James Doe",
+    "Джеймс Доу",
     "BMW",
     "M5",
-    "red",
+    "красный"
 );
 
 addCarToPoliceDatabase($factory,
     "CL234IR",
-    "James Doe",
+    "Джеймс Доу",
     "BMW",
     "X1",
-    "red",
+    "красный"
 );
 
+// Вывод списка всех легковесов после добавления
 $factory->listFlyweights();

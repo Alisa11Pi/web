@@ -3,12 +3,7 @@
 namespace RefactoringGuru\Iterator\Conceptual;
 
 /**
- * EN: Iterator Design Pattern
- *
- * Intent: Lets you traverse elements of a collection without exposing its
- * underlying representation (list, stack, tree, etc.).
- *
- * RU: Паттерн Итератор
+ * Паттерн Итератор
  *
  * Назначение: Даёт возможность последовательно обходить элементы составных
  * объектов, не раскрывая их внутреннего представления.
@@ -17,55 +12,25 @@ namespace RefactoringGuru\Iterator\Conceptual;
 use Iterator;
 
 /**
- * EN: PHP has a built-in Iterator interface that provides a very convenient
- * integration with foreach loops. Here's how the interface looks like:
- *
- * @link http://php.net/manual/en/class.iterator.php
- *
- *     interface Iterator extends Traversable {
- *         // Return the current element
- *         public function current();
- *
- *         // Move forward to next element
- *         public function next();
- *
- *         // Return the key of the current element
- *         public function key();
- *
- *         // Checks if current position is valid
- *         public function valid();
- *
- *         // Rewind the Iterator to the first element
- *         public function rewind();
- *     }
- *
- * There's also a built-in interface for collections:
- *
- * @link http://php.net/manual/en/class.iteratoraggregate.php
- *
- *     interface IteratorAggregate extends Traversable {
- *         public getIterator(): Traversable;
- *     }
- *
- * RU: PHP имеет встроенный интерфейс Итератора, который предоставляет очень
+ * PHP имеет встроенный интерфейс Итератора, который предоставляет очень
  * удобную интеграцию с циклами foreach. Вот как выглядит интерфейс:
  *
  * @link http://php.net/manual/ru/class.iterator.php
  *
  *     interface Iterator extends Traversable {
- *         // Возврат текущего элемента.
+ *         // Возврат текущего элемента
  *         public function current();
  *
- *         // Переход к следующему элементу.
+ *         // Переход к следующему элементу
  *         public function next();
  *
- *         // Возврат ключа текущего элемента.
+ *         // Возврат ключа текущего элемента
  *         public function key();
  *
- *         // Проверяет корректность текущей позиции.
+ *         // Проверяет корректность текущей позиции
  *         public function valid();
  *
- *         // Перемотка Итератора к первому элементу.
+ *         // Перемотка Итератора к первому элементу
  *         public function rewind();
  *     }
  *
@@ -79,10 +44,7 @@ use Iterator;
  */
 
 /**
- * EN: Concrete Iterators implement various traversal algorithms. These classes
- * store the current traversal position at all times.
- *
- * RU: Конкретные Итераторы реализуют различные алгоритмы обхода. Эти классы
+ * Конкретные Итераторы реализуют различные алгоритмы обхода. Эти классы
  * постоянно хранят текущее положение обхода.
  */
 class AlphabeticalOrderIterator implements \Iterator
@@ -93,20 +55,14 @@ class AlphabeticalOrderIterator implements \Iterator
     private $collection;
 
     /**
-     * EN: @var int Stores the current traversal position. An iterator may have
-     * a lot of other fields for storing iteration state, especially when it is
-     * supposed to work with a particular kind of collection.
-     *
-     * RU: @var int Хранит текущее положение обхода. У итератора может быть
+     * @var int Хранит текущее положение обхода. У итератора может быть
      * множество других полей для хранения состояния итерации, особенно когда он
      * должен работать с определённым типом коллекции.
      */
     private $position = 0;
 
     /**
-     * EN: @var bool This variable indicates the traversal direction.
-     *
-     * RU: @var bool Эта переменная указывает направление обхода.
+     * @var bool Эта переменная указывает направление обхода.
      */
     private $reverse = false;
 
@@ -118,8 +74,9 @@ class AlphabeticalOrderIterator implements \Iterator
 
     public function rewind()
     {
-        $this->position = $this->reverse ?
-            count($this->collection->getItems()) - 1 : 0;
+        $this->position = $this->reverse 
+            ? count($this->collection->getItems()) - 1 
+            : 0;
     }
 
     public function current()
@@ -144,10 +101,7 @@ class AlphabeticalOrderIterator implements \Iterator
 }
 
 /**
- * EN: Concrete Collections provide one or several methods for retrieving fresh
- * iterator instances, compatible with the collection class.
- *
- * RU: Конкретные Коллекции предоставляют один или несколько методов для
+ * Конкретные Коллекции предоставляют один или несколько методов для
  * получения новых экземпляров итератора, совместимых с классом коллекции.
  */
 class WordsCollection implements \IteratorAggregate
@@ -176,26 +130,25 @@ class WordsCollection implements \IteratorAggregate
 }
 
 /**
- * EN: The client code may or may not know about the Concrete Iterator or
- * Collection classes, depending on the level of indirection you want to keep in
- * your program.
- *
- * RU: Клиентский код может знать или не знать о Конкретном Итераторе или
+ * Клиентский код может знать или не знать о Конкретном Итераторе или
  * классах Коллекций, в зависимости от уровня косвенности, который вы хотите
  * сохранить в своей программе.
  */
 $collection = new WordsCollection();
-$collection->addItem("First");
-$collection->addItem("Second");
-$collection->addItem("Third");
+$collection->addItem("Первый");
+$collection->addItem("Второй");
+$collection->addItem("Третий");
 
-echo "Straight traversal:\n";
+echo "Прямой обход:
+";
 foreach ($collection->getIterator() as $item) {
-    echo $item . "\n";
+    echo $item . "
+";
 }
 
-echo "\n";
-echo "Reverse traversal:\n";
+echo "<br>Обратный обход:
+";
 foreach ($collection->getReverseIterator() as $item) {
-    echo $item . "\n";
+    echo $item . "
+";
 }
