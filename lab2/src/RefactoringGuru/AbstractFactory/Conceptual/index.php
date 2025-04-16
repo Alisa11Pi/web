@@ -67,7 +67,7 @@ class ConcreteProductA1 implements AbstractProductA
 {
     public function usefulFunctionA(): string
     {
-        return "Результат продукта A1. <br>";
+        return "Результат продукта A1.";
     }
 }
 
@@ -75,7 +75,7 @@ class ConcreteProductA2 implements AbstractProductA
 {
     public function usefulFunctionA(): string
     {
-        return "Результат продукта A2. <br>";
+        return "Результат продукта A2.";
     }
 }
 
@@ -119,7 +119,7 @@ class ConcreteProductB1 implements AbstractProductB
     {
         $result = $collaborator->usefulFunctionA();
 
-        return "Результат сотрудничества B1 с ({$result}) <br>";
+        return "Результат сотрудничества B1 с ({$result})";
     }
 }
 
@@ -139,7 +139,7 @@ class ConcreteProductB2 implements AbstractProductB
     {
         $result = $collaborator->usefulFunctionA();
 
-        return "Результат сотрудничества B2 с ({$result}) <br>";
+        return "Результат сотрудничества B2 с ({$result})";
     }
 }
 
@@ -160,11 +160,11 @@ function clientCode(AbstractFactory $factory)
 /**
  * Клиентский код может работать с любым конкретным классом фабрики.
  */
-echo "Клиент: тестирование клиентского кода с первым типом завода:<br>";
+echo "<br>Клиент: тестирование клиентского кода с первым типом завода:<br>";
 clientCode(new ConcreteFactory1());
 
-echo "\n"; 
+echo "<br>"; 
 
-echo "Клиент: тестирование того же клиентского кода со вторым типом завода:<br>";
+echo "<br>Клиент: тестирование того же клиентского кода со вторым типом завода:<br>";
 clientCode(new ConcreteFactory2());
  

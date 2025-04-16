@@ -21,7 +21,7 @@ class Adaptee
 {
     public function specificRequest(): string
     {
-        return ".eetpadA eht fo roivaheb laicepS <br>"; // Специальное поведение Adaptee
+        return ".eetpadA eht fo roivaheb laicepS "; // Специальное поведение Adaptee
     }
 }
 
