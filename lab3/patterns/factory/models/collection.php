@@ -16,4 +16,6 @@ class Collection extends \Factory\Router
     {
         return implode('<br />', $this->renders());
     }
+    
+    
 }

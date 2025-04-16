@@ -1,35 +1,29 @@
 <?php
 namespace MVC\Controllers;
 
+use MVC\Views\MarkdownView;
+
 class Controller
 {
-    public string $path;
-    public Router $router;
-    public object $model;
+    protected $view;
+    protected $model;
 
-    public function __construct(string $path)
+    public function __construct(string $route)
     {
-        $this->path = $path;
-        $this->router = Router::parse($path);
-        $class = 'MVC\\Models\\' . ucfirst($this->router->model);
-        $this->model = new $class();
-        if ($this->router->id) {
-            $this->model = $this->model->collection[$this->router->id];
-        }
+        // Здесь должна быть логика определения модели и представления
+        $this->view = new MarkdownView();
+        $this->model = $this->getModel($route);
     }
 
-    public function render() : string
+    public function render(): string
     {
-        $class = get_class($this->model);
-        $class = substr($class, strrpos($class, '\\') + 1);
-        $decorator = \MVC\Decorators\DecoratorFactory::create(
-            $class,
-            $this->model);
-        $view = \MVC\Views\ViewFactory::create(
-            $this->router->ext,
-            $class,
-            $decorator);
+        $data = $this->model->getData(); // Предполагаем метод getData() в модели
+        return $this->view->render($data);
+    }
 
-        return $view->render();
+    protected function getModel(string $route)
+    {
+        // Логика выбора модели по маршруту
+        return new UsersModel(); // Пример
     }
 }

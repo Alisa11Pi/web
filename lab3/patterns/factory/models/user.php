@@ -1,19 +1,42 @@
 <?php
 namespace Factory\Models;
 
-class User extends \Factory\Router
+class User
 {
-    public function __construct(
-        public string $email,
-        private string $password,
-        public ?string $first_name = null,
-        public ?string $last_name = null)
-    {}
+    private string $email;
+    private string $password;
+    private string $firstName;
+    private string $lastName;
 
-    public function render() : string
+    public function __construct(
+        string $email,
+        string $password,
+        string $firstName,
+        string $lastName
+    ) {
+        $this->email = $email;
+        $this->password = $password;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+    }
+
+    public function getEmail(): string
     {
-        $name = implode(' ', [$this->first_name, $this->last_name]);
-        return '<strong>' . htmlspecialchars($name) . '</strong> ' .
-               '(' . htmlspecialchars($this->email) . ')';
+        return $this->email;
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    public function getMaskedPassword(): string
+    {
+        return str_repeat('*', strlen($this->password));
     }
 }

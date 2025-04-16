@@ -1,9 +1,19 @@
 <?php
 namespace MVC\Models;
 
+class User
+{
+    public function __construct(
+        public string $email,
+        public string $password,
+        public string $firstName,
+        public string $lastName
+    ) {}
+}
+
 class Users
 {
-    public $collection;
+    public array $collection;  // Явно указываем тип array
 
     public function __construct(public ?array $users = null)
     {
