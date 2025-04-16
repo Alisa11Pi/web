@@ -3,26 +3,10 @@
 namespace RefactoringGuru\Mediator\Conceptual;
 
 /**
- * EN: Mediator Design Pattern
+ * Паттерн Посредник
  *
- * Intent: Lets you reduce chaotic dependencies between objects. The pattern
- * restricts direct communications between the objects and forces them to
- * collaborate only via a mediator object.
- *
- * RU: Паттерн Посредник
- *
- * Назначение: Позволяет уменьшить связанность множества классов между собой,
- * благодаря перемещению этих связей в один класс-посредник.
- */
-
-/**
- * EN: The Mediator interface declares a method used by components to notify the
- * mediator about various events. The Mediator may react to these events and
- * pass the execution to other components.
- *
- * RU: Интерфейс Посредника предоставляет метод, используемый компонентами для
- * уведомления посредника о различных событиях. Посредник может реагировать на
- * эти события и передавать исполнение другим компонентам.
+ * Назначение: Уменьшает связанность классов, вынося взаимодействие в отдельный
+ * класс-посредник.
  */
 interface Mediator
 {
@@ -30,16 +14,11 @@ interface Mediator
 }
 
 /**
- * EN: Concrete Mediators implement cooperative behavior by coordinating several
- * components.
- *
- * RU: Конкретные Посредники реализуют совместное поведение, координируя
- * отдельные компоненты.
+ * Конкретный посредник координирует взаимодействие компонентов.
  */
 class ConcreteMediator implements Mediator
 {
     private $component1;
-
     private $component2;
 
     public function __construct(Component1 $c1, Component2 $c2)
@@ -53,12 +32,12 @@ class ConcreteMediator implements Mediator
     public function notify(object $sender, string $event): void
     {
         if ($event == "A") {
-            echo "Mediator reacts on A and triggers following operations:\n";
+            echo "Посредник реагирует на A и запускает следующие операции:<br>";
             $this->component2->doC();
         }
 
         if ($event == "D") {
-            echo "Mediator reacts on D and triggers following operations:\n";
+            echo "Посредник реагирует на D и запускает следующие операции:<br>";
             $this->component1->doB();
             $this->component2->doC();
         }
@@ -66,11 +45,7 @@ class ConcreteMediator implements Mediator
 }
 
 /**
- * EN: The Base Component provides the basic functionality of storing a
- * mediator's instance inside component objects.
- *
- * RU: Базовый Компонент обеспечивает базовую функциональность хранения
- * экземпляра посредника внутри объектов компонентов.
+ * Базовый класс для компонентов, хранящий ссылку на посредника.
  */
 class BaseComponent
 {
@@ -88,24 +63,19 @@ class BaseComponent
 }
 
 /**
- * EN: Concrete Components implement various functionality. They don't depend on
- * other components. They also don't depend on any concrete mediator classes.
- *
- * RU: Конкретные Компоненты реализуют различную функциональность. Они не
- * зависят от других компонентов. Они также не зависят от каких-либо конкретных
- * классов посредников.
+ * Конкретные компоненты реализуют свою функциональность независимо от других.
  */
 class Component1 extends BaseComponent
 {
     public function doA(): void
     {
-        echo "Component 1 does A.\n";
+        echo "Компонент 1 выполняет A.<br>";
         $this->mediator->notify($this, "A");
     }
 
     public function doB(): void
     {
-        echo "Component 1 does B.\n";
+        echo "Компонент 1 выполняет B.<br>";
         $this->mediator->notify($this, "B");
     }
 }
@@ -114,29 +84,27 @@ class Component2 extends BaseComponent
 {
     public function doC(): void
     {
-        echo "Component 2 does C.\n";
+        echo "Компонент 2 выполняет C.<br>";
         $this->mediator->notify($this, "C");
     }
 
     public function doD(): void
     {
-        echo "Component 2 does D.\n";
+        echo "Компонент 2 выполняет D.<br>";
         $this->mediator->notify($this, "D");
     }
 }
 
 /**
- * EN: The client code.
- *
- * RU: Клиентский код.
+ * Клиентский код.
  */
 $c1 = new Component1();
 $c2 = new Component2();
 $mediator = new ConcreteMediator($c1, $c2);
 
-echo "Client triggers operation A.\n";
+echo "Клиент запускает операцию A.<br>";
 $c1->doA();
 
-echo "\n";
-echo "Client triggers operation D.\n";
+echo "<br>";
+echo "Клиент запускает операцию D.<br>";
 $c2->doD();
