@@ -1,0 +1,27 @@
+@startuml
+
+' Класс Users (модель)
+class Users {
+    - collection: array
+    + __construct()
+    + getCollection(): array
+}
+
+' Класс MarkdownView (представление)
+class MarkdownView {
+    + render(userData: array): string
+}
+
+' Класс Controller (контроллер)
+class Controller {
+    - users: Users
+    - view: MarkdownView
+    + __construct(filename: string)
+    + render(): string
+}
+
+' Связи между классами
+Controller --> Users : использует
+Controller --> MarkdownView : использует
+
+@enduml

@@ -1,7 +1,15 @@
 <?php
-spl_autoload_register();
+require_once __DIR__ . '/mvc/models/users.php';
+require_once __DIR__ . '/mvc/views/MarkdownView.php';
+require_once __DIR__ . '/mvc/controllers/controller.php';
 
-use MVC\Controllers\Controller;
+use patterns\mvc\controllers\Controller;
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 $controller = new Controller('users.md');
-echo $controller->render();
+echo "<pre>" . $controller->render() . "</pre>";
+
+echo "</body></html>";
+

@@ -1,16 +1,15 @@
 <?php
-namespace MVC\Views;
+namespace patterns\mvc\views;
 
 class MarkdownView
 {
-    public function render(array $data): string
+    public function render(array $userData): string
     {
-        $output = "# Информация о пользователях\n\n";
+        $output = "# Список пользователей\n\n";
         
-        foreach ($data as $user) {
-            $output .= "## {$user['first_name']} {$user['last_name']}\n";
-            $output .= "- **Email:** {$user['email']}\n";
-            $output .= "- **ID:** {$user['id']}\n\n";
+        foreach ($userData as $user) {
+            $output .= "## {$user['lastName']} {$user['firstName']}\n";
+            $output .= "- **Email:** {$user['email']}\n\n";
         }
         
         return $output;

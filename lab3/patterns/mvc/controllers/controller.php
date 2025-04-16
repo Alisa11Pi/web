@@ -1,29 +1,30 @@
 <?php
-namespace MVC\Controllers;
+namespace patterns\mvc\controllers;
 
-use MVC\Views\MarkdownView;
+use patterns\mvc\views\MarkdownView;
+use MVC\Models\Users;
 
 class Controller
 {
-    protected $view;
-    protected $model;
+    private Users $users;
+    private MarkdownView $view;
 
-    public function __construct(string $route)
+    public function __construct(string $filename)
     {
-        // Здесь должна быть логика определения модели и представления
+        $this->users = new Users();
         $this->view = new MarkdownView();
-        $this->model = $this->getModel($route);
     }
 
     public function render(): string
     {
-        $data = $this->model->getData(); // Предполагаем метод getData() в модели
-        return $this->view->render($data);
-    }
-
-    protected function getModel(string $route)
-    {
-        // Логика выбора модели по маршруту
-        return new UsersModel(); // Пример
+        $userData = [];
+        foreach ($this->users->collection as $user) {  
+            $userData[] = [
+                'firstName' => $user->firstName,
+                'lastName' => $user->lastName,
+                'email' => $user->email
+            ];
+        }
+        return $this->view->render($userData);
     }
 }
