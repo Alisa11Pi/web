@@ -1,1 +1,0 @@
-CREATE DATABASE catalog TEMPLATE template0;

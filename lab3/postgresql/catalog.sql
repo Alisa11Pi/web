@@ -1,4 +1,0 @@
-CREATE TABLE catalogs (
-  id INTEGER NOT NULL,
-  name TEXT NOT NULL
-);

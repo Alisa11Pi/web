@@ -1,5 +1,0 @@
-<?php
-#[model]
-class User
-{
-}

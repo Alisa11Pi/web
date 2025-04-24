@@ -1,5 +1,0 @@
-CREATE TABLE tbl (
-  id INTEGER NOT NULL,
-  putdate TIMESTAMP NOT NULL,
-  lastdate DATE NOT NULL
-);

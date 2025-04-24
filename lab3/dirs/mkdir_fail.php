@@ -1,2 +1,0 @@
-<?php
-mkdir('hello/world');
