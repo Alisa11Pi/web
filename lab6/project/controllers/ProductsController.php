@@ -23,7 +23,7 @@ class ProductsController extends Controller
 	
 		
 	$products = (new Products) -> getAll();
-	return $this->render('products/all', [
+	return $this->render('products/all', ['products' => $products
 	]);
      }
 }
